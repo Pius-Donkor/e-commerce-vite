@@ -61,7 +61,7 @@ const HomePage = () => {
 
             <SwiperSlide className="w-full">
               <img
-                src="/public/IMG-20240805-WA0001.jpg"
+                src="/IMG-20240805-WA0001.jpg"
                 alt="Limited Offer 2"
                 className="w-full h-full object-cover"
               />
@@ -69,7 +69,7 @@ const HomePage = () => {
 
             <SwiperSlide className="w-full">
               <img
-                src="/public/IMG-20240805-WA0004.jpg"
+                src="/IMG-20240805-WA0004.jpg"
                 alt="Limited Offer 3"
                 className="w-full h-full object-cover"
               />
