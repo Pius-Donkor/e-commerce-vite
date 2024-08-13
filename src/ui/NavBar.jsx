@@ -5,11 +5,11 @@ const NavBar = () => {
     <nav className="bg-charcoal fixed top-0 right-0 w-full z-[999] text-softWhite flex justify-between py-1 items-center px-8 text-center">
       <div className="flex">
         <img
-          src="/public/shoelogo.png"
+          src="/shoelogo.png"
           alt="logo"
           className="w-[10rem] h-[5rem] logo"
         />
-        <h1 className="bg-[url('/public/flame-bg.jpeg')] bg-contain bg-clip-text text-[transparent]">
+        <h1 className="bg-[url('/flame-bg.jpeg')] bg-contain bg-clip-text text-[transparent]">
           Shoefly
         </h1>
       </div>
