@@ -1,39 +1,74 @@
-// ProductsPage.jsx
+import { useState } from "react";
+import { productsData } from "../data";
+import Products from "../features/Products/Products";
+import Button from "../ui/Button";
+import HomeBack from "../ui/HomeBack";
+
 const ProductsPage = () => {
-  const products = [
-    {
-      id: 1,
-      name: "Product Name 1",
-      price: 100,
-      image: "path-to-image-1.jpg",
-    },
-    {
-      id: 2,
-      name: "Product Name 2",
-      price: 150,
-      image: "path-to-image-2.jpg",
-    },
-    {
-      id: 3,
-      name: "Product Name 3",
-      price: 200,
-      image: "path-to-image-3.jpg",
-    },
-    {
-      id: 4,
-      name: "Product Name 4",
-      price: 180,
-      image: "path-to-image-4.jpg",
-    },
-    // Add more products as needed
-  ];
+  // State for search query, sorting option, current page, and items per page
+  const [searchQuery, setSearchQuery] = useState("");
+  const [sortOption, setSortOption] = useState("relevance");
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 6;
+
+  // Function to handle search input change
+  const handleSearchChange = (event) => {
+    setSearchQuery(event.target.value.toLowerCase());
+    setCurrentPage(1); // Reset to the first page when searching
+  };
+
+  // Function to handle sorting option change
+  const handleSortChange = (event) => {
+    setSortOption(event.target.value);
+    setCurrentPage(1); // Reset to the first page when sorting
+  };
+
+  // Filter and sort products based on search and sort options
+  const filteredAndSortedProducts = productsData
+    .filter(
+      (product) =>
+        product.name.toLowerCase().includes(searchQuery) ||
+        product.description.toLowerCase().includes(searchQuery)
+    )
+    .sort((a, b) => {
+      switch (sortOption) {
+        case "price-asc":
+          return a.price - b.price;
+        case "price-desc":
+          return b.price - a.price;
+        case "rating":
+          return b.rating - a.rating;
+        default:
+          return 0; // Default to no sorting
+      }
+    });
+
+  // Calculate pagination variables
+  const totalPages = Math.ceil(filteredAndSortedProducts.length / itemsPerPage);
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const currentProducts = filteredAndSortedProducts.slice(startIndex, endIndex);
+
+  // Function to handle page change
+  const handlePageChange = (direction) => {
+    if (direction === "next" && currentPage < totalPages) {
+      setCurrentPage(currentPage + 1);
+    } else if (direction === "prev" && currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
 
   return (
     <div className="container mx-auto p-8">
       <div className="flex justify-between items-center mb-6">
+        <HomeBack buttonColor="orange" textColor="white" />
         <h2 className="text-3xl font-bold">Products</h2>
         <div className="flex space-x-4">
-          <select className="border border-gray-300 p-2 rounded-md">
+          <select
+            value={sortOption}
+            onChange={handleSortChange}
+            className="border border-gray-300 p-2 rounded-md"
+          >
             <option value="relevance">Sort by Relevance</option>
             <option value="price-asc">Price: Low to High</option>
             <option value="price-desc">Price: High to Low</option>
@@ -41,30 +76,36 @@ const ProductsPage = () => {
           </select>
           <input
             type="text"
+            value={searchQuery}
+            onChange={handleSearchChange}
             placeholder="Search"
             className="border border-gray-300 p-2 rounded-md"
           />
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {products.map((product) => (
-          <div
-            key={product.id}
-            className="bg-white shadow-md rounded-lg p-4 hover:shadow-lg transition-shadow duration-300"
-          >
-            <img
-              src={product.image}
-              alt={product.name}
-              className="w-full h-48 object-cover rounded-md mb-4"
-            />
-            <h3 className="text-lg font-semibold">{product.name}</h3>
-            <p className="text-gray-600">${product.price}</p>
-            <button className="bg-green-500 text-white py-2 px-4 mt-4 rounded-md">
-              Add to Cart
-            </button>
-          </div>
-        ))}
+      {/* Display products */}
+      <Products products={currentProducts} />
+
+      {/* Pagination controls */}
+      <div className="flex justify-between items-center mt-6">
+        <Button
+          textColor="darkGray"
+          onClick={() => handlePageChange("prev")}
+          disabled={currentPage === 1}
+        >
+          {"<"}Prev
+        </Button>
+        <span className="text-gray-600">
+          Page {currentPage} of {totalPages}
+        </span>
+        <Button
+          textColor="darkGray"
+          onClick={() => handlePageChange("next")}
+          disabled={currentPage === totalPages}
+        >
+          Next{">"}
+        </Button>
       </div>
     </div>
   );
