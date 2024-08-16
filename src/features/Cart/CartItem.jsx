@@ -30,7 +30,7 @@ export default function CartItem({ item, dispatch }) {
       />
       <div className="ml-4 flex-1">
         <h3 className="font-semibold text-lg">{item.name}</h3>
-        <p className="text-gray-600">${item.price}</p>
+        <p className="text-gray-600">&#8373;{item.price}</p>
         <div className="flex items-center mt-2">
           <Button onClick={handleQuantityDecrease} type="cartIncDec">
             -
