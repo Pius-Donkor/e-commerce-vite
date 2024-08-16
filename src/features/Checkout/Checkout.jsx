@@ -29,6 +29,7 @@ const Checkout = () => {
         <ShippingSection
           onNextStep={goToNextStep}
           setShippingDetails={setShippingDetails}
+          cartItems={cartItems}
         />
       )}
 
