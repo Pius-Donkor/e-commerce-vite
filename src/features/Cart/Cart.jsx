@@ -27,8 +27,8 @@ export default function Cart() {
         </div>
         <div className="bg-white shadow-md rounded-lg p-4 sticky h-fit top-32">
           <h3 className="text-xl font-semibold mb-4">Order Summary</h3>
-          <p className="text-lg">Subtotal: ${subtotal}</p>
-          <p className="text-lg font-bold">Total: ${subtotal}</p>
+          <p className="text-lg">Subtotal: &#8373;{subtotal}</p>
+          <p className="text-lg font-bold">Total: &#8373;{subtotal}</p>
           <div className="flex justify-center mt-4 w-full ">
             <Button textColor="darkGray" role="link" link="/checkoutPage">
               Proceed to Checkout
