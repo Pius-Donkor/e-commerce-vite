@@ -63,7 +63,7 @@ const ReviewSection = ({ cartItems, shippingDetails }) => {
           <div key={index} className="flex justify-between mb-2">
             <div>{item.name}</div>
             <div>
-              {item.quantity} x ${item.price}
+              {item.quantity} x &#8373;{item.price}
             </div>
           </div>
         ))}
