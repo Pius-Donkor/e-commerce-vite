@@ -9,6 +9,8 @@ import { CartProvider } from "./context/CartContext";
 import { Toaster } from "react-hot-toast";
 import { FaCartArrowDown } from "react-icons/fa6";
 import OrdersPage from "./pages/OrdersPage";
+import LoginPage from "./pages/LoginPage";
+import SignupPage from "./pages/SignupPage";
 
 function App() {
   return (
@@ -32,6 +34,8 @@ function App() {
           <Route path="/" element={<Layout />}>
             <Route index element={<HomePage />} />
             <Route path="/cart" element={<CartPage />} />
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/signup" element={<SignupPage />} />
             <Route path="/orders" element={<OrdersPage />} />
             <Route path="/checkoutPage" element={<CheckoutPage />} />
             <Route path="/product/:id" element={<ProductDetailsPage />} />
