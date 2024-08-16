@@ -1,5 +1,6 @@
 // src/components/Header.js
 import "../customStyles/bounce.css";
+import AuthButtons from "./AuthButtons";
 const NavBar = () => {
   return (
     <nav className="bg-charcoal fixed top-0 right-0 w-full z-[999] text-softWhite flex justify-between py-1 items-center px-8 text-center">
@@ -13,7 +14,7 @@ const NavBar = () => {
           Shoefly
         </h1>
       </div>
-
+      <AuthButtons />
       <nav>
         <ul className="list-none p-0 m-0 flex justify-center">
           <li className="mx-4">
