@@ -1,20 +1,27 @@
 import { useState } from "react";
 import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
+import { generateId } from "../../helper";
 
 export default function Signup() {
-  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
+  const navigate = useNavigate();
   const handleSignup = () => {
     const users = JSON.parse(localStorage.getItem("users")) || [];
-    const userExists = users.some((user) => user.username === username);
+    const userExists = users.some((user) => user.email === email);
 
     if (userExists) {
-      toast.error("Username already exists!");
+      toast.error("email already exists!");
     } else {
-      users.push({ username, password });
+      users.push({ user_id: generateId(), email, password });
       localStorage.setItem("users", JSON.stringify(users));
+      localStorage.setItem(
+        "currentUser",
+        JSON.stringify({ user_id: generateId(), email, password })
+      );
       toast.success("Signup successful! You can now log in.");
+      navigate(-1);
     }
   };
 
@@ -27,9 +34,9 @@ export default function Signup() {
         <div className="space-y-4">
           <input
             type="text"
-            placeholder="Username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
+            placeholder="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
             className="w-full p-3 rounded-lg bg-lightGray text-charcoal placeholder-darkGray focus:outline-none focus:ring-2 focus:ring-emeraldGreen transition-all duration-300"
           />
           <input
