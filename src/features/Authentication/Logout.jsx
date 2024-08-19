@@ -1,16 +1,20 @@
 import toast from "react-hot-toast";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import Button from "../../ui/Button";
+import { useIsAuthenticated } from "../../context/AuthContext";
 
 const LogoutButton = () => {
-  const history = useHistory();
+  const navigate = useNavigate();
+  const { setIsAuthenticated } = useIsAuthenticated();
 
   const handleLogout = () => {
+    setIsAuthenticated(false);
     localStorage.removeItem("currentUser");
     toast.success("Logged out successfully!");
-    history.push("/login"); // Redirect to login page
+    navigate("/"); // Redirect to login page
   };
 
-  return <button onClick={handleLogout}>Log Out</button>;
+  return <Button onClick={handleLogout}>Log Out</Button>;
 };
 
 export default LogoutButton;
