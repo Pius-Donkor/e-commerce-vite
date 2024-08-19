@@ -30,7 +30,12 @@ export default function Cart() {
           <p className="text-lg">Subtotal: &#8373;{subtotal}</p>
           <p className="text-lg font-bold">Total: &#8373;{subtotal}</p>
           <div className="flex justify-center mt-4 w-full ">
-            <Button textColor="darkGray" role="link" link="/checkoutPage">
+            <Button
+              disabled={cartItems.length}
+              textColor="darkGray"
+              role="link"
+              link="/checkoutPage"
+            >
               Proceed to Checkout
             </Button>
           </div>
