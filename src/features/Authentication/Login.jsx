@@ -1,24 +1,27 @@
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import { useIsAuthenticated } from "../../context/AuthContext";
 
 export default function Login() {
-  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+  const { setIsAuthenticated } = useIsAuthenticated();
 
   const handleLogin = () => {
     const users = JSON.parse(localStorage.getItem("users")) || [];
     const user = users.find(
-      (user) => user.username === username && user.password === password
+      (user) => user.email === email && user.password === password
     );
 
     if (user) {
       localStorage.setItem("currentUser", JSON.stringify(user));
       toast.success("Login successful!");
-      navigate("/"); // Redirect to home page or another page
+      setIsAuthenticated(true);
+      navigate(-1); // Redirect to home page or another page
     } else {
-      toast.error("Invalid username or password!");
+      toast.error("Invalid email or password!");
     }
   };
 
@@ -31,9 +34,9 @@ export default function Login() {
         <div className="space-y-4">
           <input
             type="text"
-            placeholder="Username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
+            placeholder="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
             className="w-full p-3 rounded-lg bg-lightGray text-charcoal placeholder-darkGray focus:outline-none focus:ring-2 focus:ring-emeraldGreen transition-all duration-300"
           />
           <input
