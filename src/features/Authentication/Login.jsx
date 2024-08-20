@@ -19,7 +19,7 @@ export default function Login() {
       localStorage.setItem("currentUser", JSON.stringify(user));
       toast.success("Login successful!");
       setIsAuthenticated(true);
-      navigate(-1); // Redirect to home page or another page
+      navigate("/"); // Redirect to home page or another page
     } else {
       toast.error("Invalid email or password!");
     }
